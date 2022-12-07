@@ -58,6 +58,20 @@ ALTER SEQUENCE public.actividad_id_seq OWNED BY public.actividad.id;
 
 
 --
+-- Name: actividad_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.actividad ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.actividad_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: alumno; Type: TABLE; Schema: public; Owner: fefi
 --
 
@@ -91,6 +105,20 @@ ALTER TABLE public.alumno_id_seq OWNER TO fefi;
 --
 
 ALTER SEQUENCE public.alumno_id_seq OWNED BY public.alumno.id;
+
+
+--
+-- Name: alumno_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.alumno ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.alumno_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
@@ -132,6 +160,20 @@ ALTER SEQUENCE public.alumno_x_materia_id_seq OWNED BY public.alumno_x_materia.i
 
 
 --
+-- Name: alumno_x_materia_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.alumno_x_materia ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.alumno_x_materia_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: login; Type: TABLE; Schema: public; Owner: fefi
 --
 
@@ -169,6 +211,20 @@ ALTER SEQUENCE public.login_id_seq OWNED BY public.login.id;
 
 
 --
+-- Name: login_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.login ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.login_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: materia; Type: TABLE; Schema: public; Owner: fefi
 --
 
@@ -200,6 +256,20 @@ ALTER TABLE public.materia_id_seq OWNER TO fefi;
 --
 
 ALTER SEQUENCE public.materia_id_seq OWNED BY public.materia.id;
+
+
+--
+-- Name: materia_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.materia ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.materia_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
@@ -236,6 +306,20 @@ ALTER TABLE public.opcion_id_seq OWNER TO fefi;
 --
 
 ALTER SEQUENCE public.opcion_id_seq OWNED BY public.opcion.id;
+
+
+--
+-- Name: opcion_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.opcion ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.opcion_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
@@ -276,6 +360,20 @@ ALTER SEQUENCE public.pregunta_id_seq OWNED BY public.pregunta.id;
 
 
 --
+-- Name: pregunta_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.pregunta ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.pregunta_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: profesor; Type: TABLE; Schema: public; Owner: fefi
 --
 
@@ -310,6 +408,20 @@ ALTER TABLE public.profesor_id_seq OWNER TO fefi;
 --
 
 ALTER SEQUENCE public.profesor_id_seq OWNED BY public.profesor.id;
+
+
+--
+-- Name: profesor_id_seq1; Type: SEQUENCE; Schema: public; Owner: fefi
+--
+
+ALTER TABLE public.profesor ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.profesor_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
@@ -384,10 +496,24 @@ SELECT pg_catalog.setval('public.actividad_id_seq', 1, false);
 
 
 --
+-- Name: actividad_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.actividad_id_seq1', 1, false);
+
+
+--
 -- Name: alumno_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fefi
 --
 
 SELECT pg_catalog.setval('public.alumno_id_seq', 1, false);
+
+
+--
+-- Name: alumno_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.alumno_id_seq1', 2, true);
 
 
 --
@@ -398,10 +524,24 @@ SELECT pg_catalog.setval('public.alumno_x_materia_id_seq', 1, false);
 
 
 --
+-- Name: alumno_x_materia_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.alumno_x_materia_id_seq1', 2, true);
+
+
+--
 -- Name: login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fefi
 --
 
 SELECT pg_catalog.setval('public.login_id_seq', 1, false);
+
+
+--
+-- Name: login_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.login_id_seq1', 1, false);
 
 
 --
@@ -412,10 +552,24 @@ SELECT pg_catalog.setval('public.materia_id_seq', 1, false);
 
 
 --
+-- Name: materia_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.materia_id_seq1', 2, true);
+
+
+--
 -- Name: opcion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fefi
 --
 
 SELECT pg_catalog.setval('public.opcion_id_seq', 1, false);
+
+
+--
+-- Name: opcion_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.opcion_id_seq1', 1, false);
 
 
 --
@@ -426,10 +580,24 @@ SELECT pg_catalog.setval('public.pregunta_id_seq', 1, false);
 
 
 --
+-- Name: pregunta_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.pregunta_id_seq1', 1, false);
+
+
+--
 -- Name: profesor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fefi
 --
 
 SELECT pg_catalog.setval('public.profesor_id_seq', 1, false);
+
+
+--
+-- Name: profesor_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: fefi
+--
+
+SELECT pg_catalog.setval('public.profesor_id_seq1', 1, false);
 
 
 --
