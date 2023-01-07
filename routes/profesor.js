@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const client = require("../config/db");
-const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-var utils = require("../utils/utils");
-const messages = require("../data/messages");
+import { Router } from "express";
+const router = Router();
+import connectDatabase from "../config/db.js";
+import { body, validationResult } from "express-validator";
+import { hash as _hash } from "bcrypt";
+import { generateToken } from "../utils/utils.js";
+import { messages } from "../data/messages.js";
 
 // Create a new profesor
 router.post(
@@ -22,9 +22,9 @@ router.post(
       // If one of them isn't, returns an error
       // Verifies if the error is the email
       if (errors.errors[0].param === "email") {
-        return res.status(400).json({ message: messages.EMAIL_ERROR });
+        return res.status(400).json({ message: EMAIL_ERROR });
       } else {
-        return res.status(400).json({ message: messages.PARAMETERS_ERROR });
+        return res.status(400).json({ message: PARAMETERS_ERROR });
       }
     }
     // Loads the data into variables to use
@@ -35,20 +35,20 @@ router.post(
 
     // Verifies that the username is not already in use
     let sql = `SELECT * FROM profesor WHERE email = '${email}'`;
-    let results = await client.query(sql);
+    let results = await query(sql);
     if (results.err) {
       throw results.err;
     }
     // If there is at least one result, return error
     if (results.rows.length) {
-      return res.status(400).json({ message: messages.USERNAME_REPEAT });
+      return res.status(400).json({ message: USERNAME_REPEAT });
     }
 
     // Hash the password
-    const hash = await bcrypt.hash(password, 8);
+    const hash = await _hash(password, 8);
     // Adds the user to the database
     sql = `INSERT INTO profesor (nombre, apellido, email, passwordHash) VALUES ('${nombre}','${apellido}','${email}','${hash}') RETURNING id`;
-    results = await client.query(sql);
+    results = await query(sql);
     if (results.err) {
       throw results.err;
     }
@@ -58,9 +58,9 @@ router.post(
 
     // After the user is inserted, create a login record and return it
     const currentTimestamp = Math.round(new Date() / 1000);
-    const loginToken = utils.generateToken(25);
+    const loginToken = generateToken(25);
     sql = `INSERT INTO login (fechahora, token, profesorid) VALUES (${currentTimestamp},'${loginToken}',${profesorId})`;
-    results = await client.query(sql);
+    results = await query(sql);
     if (results.err) {
       throw results.err;
     }
@@ -69,4 +69,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

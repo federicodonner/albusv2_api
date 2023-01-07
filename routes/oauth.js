@@ -1,11 +1,11 @@
 // Route file for getting and editing gastos
-const express = require("express");
-const router = express.Router();
-const client = require("../config/db");
-const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-const messages = require("../data/messages");
-const utils = require("../utils/utils");
+import { Router } from "express";
+const router = Router();
+import connectDatabase from "../config/db.js";
+import { body, validationResult } from "express-validator";
+import { compare } from "bcrypt";
+import { messages } from "../data/messages.js";
+import { generateToken } from "../utils/utils.js";
 
 // Validate the user and return the token
 router.post(
@@ -27,7 +27,7 @@ router.post(
 
     // Verifies that the user exists
     let sql = `SELECT * FROM profesor WHERE email = '${username}'`;
-    const profesores = await client.query(sql);
+    const profesores = await query(sql);
     if (profesores.err) {
       throw profesores.err;
     }
@@ -39,7 +39,7 @@ router.post(
 
     // Verifies that the password is correct
     hashedPassword = profesores.rows[0].passwordhash;
-    const passwordResult = await bcrypt.compare(password, hashedPassword);
+    const passwordResult = await compare(password, hashedPassword);
     if (!passwordResult) {
       return res.status(401).json({ message: messages.INCORRECT_PASSWORD });
     }
@@ -47,9 +47,9 @@ router.post(
     // Generate the login record with the token
     const profesorId = profesores.rows[0].id;
     const currentTimestamp = Math.round(new Date() / 1000);
-    const loginToken = utils.generateToken(25);
+    const loginToken = generateToken(25);
     sql = `INSERT INTO login (fechahora, token, profesorid) VALUES (${currentTimestamp},'${loginToken}',${profesorId})`;
-    var loginQuery = await client.query(sql);
+    var loginQuery = await query(sql);
     if (loginQuery.err) {
       throw loginQuery.err;
     }
@@ -57,4 +57,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

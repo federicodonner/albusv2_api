@@ -1,32 +1,33 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
+import pkg from "body-parser";
+const { urlencoded, json } = pkg;
 
 const PORT = process.env.port || 3001;
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
 // // Middleware for cors
 app.use(cors());
 
 // Middleware for authentication
-var authenticationMiddleware = require("./middleware/authentication");
-app.use("/materia", authenticationMiddleware.authentication);
+import authentication from "./middleware/authentication.js";
+app.use("/materia", authentication);
 
 // Routes
-const alumno = require("./routes/operacionesAlumno");
+import alumno from "./routes/operacionesAlumno.js";
 app.use("/operacionesalumno", alumno);
 
-const profesor = require("./routes/profesor");
+import profesor from "./routes/profesor.js";
 app.use("/profesor", profesor);
 
-const materia = require("./routes/materia");
+import materia from "./routes/materia.js";
 app.use("/materia", materia);
 
-var oauthRoute = require("./routes/oauth");
+import oauthRoute from "./routes/oauth.js";
 app.use("/oauth", oauthRoute);
 
 app.listen(PORT, (error) => {

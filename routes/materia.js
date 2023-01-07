@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const client = require("../config/db");
-const { body, validationResult } = require("express-validator");
-const messages = require("../data/messages");
+import { Router } from "express";
+const router = Router();
+import connectDatabase from "../config/db.js";
+import { body, validationResult } from "express-validator";
+import { messages } from "../data/messages.js";
 
 // Create a new materia
 router.post(
@@ -14,14 +14,14 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // If one of them isn't, returns an error
-      return res.status(400).json({ message: messages.PARAMETERS_ERROR });
+      return res.status(400).json({ message: PARAMETERS_ERROR });
     }
     // Loads the data into variables to use
     const nombre = req.body.nombre;
 
     // Verifies that the materia doesn't exist
     let sql = `SELECT * FROM materia WHERE nombre = '${nombre}'`;
-    const materiaExistente = await client.query(sql);
+    const materiaExistente = await query(sql);
 
     if (materiaExistente.err) {
       throw materiaExistente.err;
@@ -34,7 +34,7 @@ router.post(
     // Create the materia
     sql = `INSERT INTO materia (nombre) VALUES ('${nombre}') RETURNING nombre`;
 
-    const materia = await client.query(sql);
+    const materia = await query(sql);
     if (materia.err) {
       throw materia.err;
     }
@@ -43,4 +43,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

@@ -1,6 +1,7 @@
-const { Client } = require("pg");
+import pkg from "pg";
+const { Client } = pkg;
 
-function connectDatabase() {
+export default function connectDatabase() {
   let client;
   if (process.env.NODE_ENV !== "production") {
     client = new Client({
@@ -15,10 +16,9 @@ function connectDatabase() {
       },
     });
   }
-
   client.connect((err) => {
     if (!err) {
-      console.log("Database connected");
+      // console.log("Database connected");
     } else {
       console.log("Error connecting to database", err);
     }
@@ -26,4 +26,3 @@ function connectDatabase() {
 
   return client;
 }
-module.exports = connectDatabase();

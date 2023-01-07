@@ -1,4 +1,4 @@
-const messages = {
+export const messages = {
   MISSING_SUBJECT_ID: "Debe especificar la materia",
   NO_STUDENTS_IN_SUBJECT: "La materia especificada no tiene alumnos",
   SUBJECT_DOESNT_EXIST: "La materia especificada no existe",
@@ -11,5 +11,7 @@ const messages = {
   USER_NOT_FOUND:
     "El usuario especificado no existe, revise los datos y vuelva a intentarlo.",
   INCORRECT_PASSWORD: "La contraseña ingresada es incorrecta.",
+  STUDENT_CREATED: "Alumno creado correctamente",
+  EXISTING_STUDENT_ADDED_TO_SUBJECT:
+    "Alumno existente, agregado a la materia seleccionada",
 };
-module.exports = messages;
